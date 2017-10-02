@@ -351,6 +351,92 @@ status = getHaterStatus2(weather: "rainy")
 
 var status2 = getHaterStatus2(weather: "rainy")
 
+if let unwrappedStatus = status {
+    // unwrappedStatus contains a non-optional value!
+} else {
+    // in case you want an else block, here you go...
+}
+
+func getHaterStatusFinal(weather: String) -> String? {
+    if weather == "sunny" {
+        return nil
+    } else {
+        return "Hate"
+    }
+}
+
+func takeHaterAction(status: String) {
+    if status == "Hate" {
+        print("Hating")
+    }
+}
+
+if let haterStatus = getHaterStatusFinal(weather: "rainy") {
+    takeHaterAction(status: haterStatus)
+}
+
+func yearAlbumReleased(name: String) -> Int? {
+    if name == "Taylor Swift" { return 2006 }
+    if name == "Fearless" { return 2008 }
+    if name == "Speak Now" { return 2010 }
+    if name == "Red" { return 2012 }
+    if name == "1989" { return 2014 }
+    
+    return nil
+}
+
+var items = ["James", "John", "Sally"]
+
+func position(of string: String, in array: [String]) -> Int? {
+    for i in 0 ..< array.count {
+        if array[i] == string {
+            return i
+        }
+    }
+    
+    return nil
+}
+
+let jamesPosition = position(of: "James", in: items)
+let johnPosition = position(of: "John", in: items)
+let sallyPosition = position(of: "Sally", in: items)
+let bobPosition = position(of: "Bob", in: items)
+
+var year = yearAlbumReleased(name: "Red")
+
+if year == nil {
+    print("There was an error")
+} else {
+    print("It was released in \(year!)")
+}
+
+//............... Optional Chaining ...............
+func albumReleased(year: Int) -> String? {
+    switch year {
+    case 2006: return "Taylor Swift"
+    case 2008: return "Fearless"
+    case 2010: return "Speak Now"
+    case 2012: return "Red"
+    case 2014: return "1989"
+    default: return nil
+    }
+}
+
+let album = albumReleased(year: 2006)
+print("The album is \(album)")
+
+let str1 = "Hello World"
+print(str1.uppercased())
+
+let album1 = albumReleased(year: 2006)?.uppercased()
+print("The album is \(album1)")
+
+let album2 = albumReleased(year: 2008) ?? "unknown"
+print("The album is \(album2)")
+
+//............... Enumerations ...............
+
+
 
 
 
