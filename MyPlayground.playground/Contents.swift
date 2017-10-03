@@ -435,6 +435,62 @@ let album2 = albumReleased(year: 2008) ?? "unknown"
 print("The album is \(album2)")
 
 //............... Enumerations ...............
+enum WeatherType {
+    case sun
+    case cloud
+    case rain
+    case wind(speed: Int)
+    case snow
+}
+
+func getHaterStatusEnum(weather: WeatherType) -> String? {
+    switch weather {
+    case .sun:
+        return nil
+    case .wind(let speed) where speed < 10:
+        return "meh"
+    case .cloud, .wind:
+        return "dislike"
+    case .rain, .snow:
+        return "hate"
+    }
+}
+
+getHaterStatusEnum(weather: .wind(speed: 5))
+
+//............... Structs ...............
+struct Person {
+    var clothes: String
+    var shoes: String
+    
+    func describe() {
+        print("I like wearing \(clothes) with \(shoes)")
+    }
+}
+
+let taylor = Person(clothes: "T-shirts", shoes: "sneakers")
+let other = Person(clothes: "short skirts", shoes: "high heels")
+
+print(taylor.clothes)
+print(other.shoes)
+
+var taylorCopy = taylor
+taylorCopy.shoes = "flip flops"
+
+print(taylor)
+print(taylorCopy)
+
+taylor.describe()
+other.describe()
+taylorCopy.describe()
+
+//............... Classes ...............
+
+
+
+
+
+
 
 
 
