@@ -485,25 +485,204 @@ other.describe()
 taylorCopy.describe()
 
 //............... Classes ...............
+class PersonClass {
+    var clothes: String
+    var shoes: String
+    
+    init(clothes: String, shoes: String) {
+        self.clothes = clothes
+        self.shoes = shoes
+    }
+}
+
+class Singer {
+    var name: String
+    var age: Int
+    
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+    
+    func sing() {
+        print("La la la la")
+    }
+}
+
+var taylor1 = Singer(name: "Taylor", age: 25)
+taylor1.name
+taylor1.age
+taylor1.sing()
+
+class CountrySinger: Singer {
+    override func sing() {
+        print("Trucks, guitars, and liquor")
+    }
+}
+
+var taylor2 = CountrySinger(name: "Taylor", age: 25)
+taylor2.sing()
+
+class HeavyMetalSinger: Singer {
+    var noiseLevel: Int
+    
+    init(name: String, age: Int, noiseLevel: Int) {
+        self.noiseLevel = noiseLevel
+        super.init(name: name, age: age)
+    }
+    
+    override func sing() {
+        print("Grrrr rargh rargh rarrrrrrgh!")
+    }
+}
+
+var taylor3 = HeavyMetalSinger(name: "Tyler", age: 22, noiseLevel: 11)
+taylor3.sing()
+
+//............... Properties ...............
+taylor.describe()
+other.describe()
 
 
+struct Person2 {
+    var clothes: String {
+        willSet {
+            updateUI(msg: "I'm changing from \(clothes) to \(newValue)")
+        }
+        
+        didSet {
+            updateUI(msg: "I just changed from \(oldValue) to \(clothes)")
+        }
+    }
+}
 
+func updateUI(msg: String) {
+    print(msg)
+}
 
+var taylor4 = Person2(clothes: "T-shirts")
+taylor4.clothes = "short skirts"
 
+struct Dog {
+    var age: Int
+    
+    var ageInDogYears: Int {
+        get {
+            return age * 7
+        }
+    }
+}
 
+var fan = Dog(age: 25)
+print(fan.ageInDogYears)
 
+//............... Static properties and methods ...............
+struct TaylorFan {
+    static var favoriteSong = "Look What You Made Me Do"
+    
+    var name: String
+    var age: Int
+}
 
+let fan5 = TaylorFan(name: "James", age: 25)
+print(TaylorFan.favoriteSong)
 
+//............... Access Control ...............
 
+// Public: everyone can read and write the property
+// Internal: Only your Swift code can read and write the property
+// File Private: Only Swift code in the same file can read and write the property (used very rarely)
+// Private: Property is only available inside methods that belong to the type or its extensions
 
+//............... Polymorphism ...............
+class Album {
+    var name: String
+    
+    init(name: String) {
+        self.name = name
+    }
+    
+    func getPerformance() -> String {
+        return "The album \(name) sold lots"
+    }
+}
 
+class StudioAlbum: Album {
+    var studio: String
+    
+    init(name: String, studio: String) {
+        self.studio = studio
+        super.init(name: name)
+    }
+    
+    override func getPerformance() -> String {
+        return "The studio album \(name) sold lots"
+    }
+}
 
+class LiveAlbum: Album {
+    var location: String
+    
+    init(name: String, location: String) {
+        self.location = location
+        super.init(name: name)
+    }
+    
+    override func getPerformance() -> String {
+        return "The live album \(name) sold lots"
+    }
+}
 
+var taylorSwift = StudioAlbum(name: "Taylor Swift", studio: "The Castles Studio")
+var fearless = StudioAlbum(name: "Speak Now", studio: "Aimeeland Studio")
+var iTunesLive = LiveAlbum(name: "iTunes Live from SoHo", location: "New York")
 
+var allAlbums: [Album] = [taylorSwift, fearless, iTunesLive]
 
+for eachAlbum in allAlbums {
+    print(eachAlbum.getPerformance())
+}
+// Typecasting
+// as? - optional downcasting (I think this conversion* works but it might fail)
+// as! - forced downcasting (This conversion* should definitely work, and if it doesn't then fail)
+// *Swift doesn't actually convert, just treats it as such
 
+for eachAlbum in allAlbums {
+    print(eachAlbum.getPerformance())
+    
+    if let studioAlbum = album as? StudioAlbum {
+        print(studioAlbum.studio)
+    } else if let liveAlbum = album as? LiveAlbum {
+        print(liveAlbum.location)
+    }
+}
 
+var allStudioAlbums: [Album] = [taylorSwift, fearless]
 
+for eachAlbum in allStudioAlbums {
+    let studioAlbum = eachAlbum as! StudioAlbum
+    print(studioAlbum.studio)
+}
 
+for eachAlbum in allStudioAlbums as! [StudioAlbum] {
+    print(eachAlbum.studio)
+}
 
+for eachAlbum in allStudioAlbums as? [LiveAlbum] ?? [LiveAlbum]() {
+    print(eachAlbum.location)
+}
 
+let number = 5
+let text = String(number)
+print(text)
+
+//............... Closures ...............
+// A variable that holds code
+
+let vw = UIView()
+UIView.animate(withDuration: 0.5, animations: {
+    vw.alpha = 0
+})
+UIView.animate(withDuration: 0.5) {
+    vw.alpha = 0
+}
