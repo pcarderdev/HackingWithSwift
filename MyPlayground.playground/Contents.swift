@@ -650,9 +650,9 @@ for eachAlbum in allAlbums {
 for eachAlbum in allAlbums {
     print(eachAlbum.getPerformance())
     
-    if let studioAlbum = album as? StudioAlbum {
+    if let studioAlbum = eachAlbum as? StudioAlbum {
         print(studioAlbum.studio)
-    } else if let liveAlbum = album as? LiveAlbum {
+    } else if let liveAlbum = eachAlbum as? LiveAlbum {
         print(liveAlbum.location)
     }
 }
